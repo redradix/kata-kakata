@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import CitiesInput from './components/CitiesInput'
 import CitiesTable from './components/CitiesTable'
 
-function App() {
+function App({ attributes }) {
   const [cities, setCities] = useState([])
 
   return (
