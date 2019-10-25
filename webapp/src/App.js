@@ -25,8 +25,6 @@ const parseData = R.pipe(
   ),
 )
 
-const getMaxTimestamp = data => {}
-
 function App({ attributes }) {
   const [cities, setCities] = useState({})
 
