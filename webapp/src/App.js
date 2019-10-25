@@ -25,6 +25,15 @@ const parseData = R.pipe(
   ),
 )
 
+const getMaxTimestampByCity = R.map(
+  R.pipe(
+    R.pluck('timestamp'),
+    R.values,
+    R.apply(Math.max),
+    R.objOf('maxTimestamp'),
+  ),
+)
+
 const FETCH_INTERVAL = 5000
 
 function App({ attributes }) {
@@ -38,14 +47,7 @@ function App({ attributes }) {
       .then(res => res.json())
       .then(data => {
         const parsedData = parseData(data)
-        const maxTimestampByCity = R.map(
-          R.pipe(
-            R.pluck('timestamp'),
-            R.values,
-            R.apply(Math.max),
-            R.objOf('maxTimestamp'),
-          ),
-        )(parsedData)
+        const maxTimestampByCity = getMaxTimestampByCity(parsedData)
 
         setCities(R.mergeDeepLeft(parsedData, maxTimestampByCity))
 
