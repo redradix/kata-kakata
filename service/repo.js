@@ -1,7 +1,6 @@
 const R = require('ramda')
 
-const shouldGenerateNew = () =>
-  Boolean(Math.round(Math.random()))
+const shouldGenerateNew = () => Boolean(Math.round(Math.random()))
 
 const createValue = id => {
   const [city, attribute] = R.split('.', id)
@@ -11,18 +10,17 @@ const createValue = id => {
     attribute,
     id,
     timestamp: Date.now(),
-    value: Math.random()
+    value: Math.random(),
   }
 }
 
 const exists = R.complement(R.isNil)
 
 module.exports = () => {
-
   let _values = {}
 
   return {
-    getCurrentValues
+    getCurrentValues,
   }
 
   function getCurrentValues(ids) {
@@ -40,5 +38,4 @@ module.exports = () => {
     _values = R.assoc(id, value, _values)
     return Promise.resolve(value)
   }
-
 }

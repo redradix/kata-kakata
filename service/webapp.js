@@ -5,11 +5,10 @@ const R = require('ramda')
 
 const extractIds = R.pipe(
   R.prop('ids'),
-  R.split(',')
+  R.split(','),
 )
 
 module.exports = function(app, repo) {
-
   app.use(bodyParser.urlencoded({ extended: true }))
   app.use(bodyParser.json())
   app.use(cors())
@@ -22,7 +21,8 @@ module.exports = function(app, repo) {
 
     const ids = extractIds(req.params)
 
-    repo.getCurrentValues(ids)
+    repo
+      .getCurrentValues(ids)
       .then(result => res.json(result))
       .catch(error => {
         console.log('get current values failed => ', error)
