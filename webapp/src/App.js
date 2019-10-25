@@ -59,6 +59,12 @@ function App({ attributes }) {
       })
   }
 
+  useEffect(() => {
+    return () => {
+      clearTimeout(timeoutRef.current)
+    }
+  }, [])
+
   return (
     <div className="App">
       <CitiesInput onChange={handleChange} />
