@@ -1,16 +1,14 @@
-import React from 'react'
+import React, { useState } from 'react'
+import CitiesInput from './components/CitiesInput'
+import CitiesTable from './components/CitiesTable'
 
-function App(props) {
+function App() {
+  const [cities, setCities] = useState([])
+
   return (
     <div className="App">
-      <div>
-        <input
-          type="text"
-          value={props.citiesStr}
-          placeholder="comma separated cities"
-        />
-      </div>
-      <div id="data-section" className="data"></div>
+      <CitiesInput onChange={setCities} />
+      <CitiesTable cities={cities} />
     </div>
   )
 }
