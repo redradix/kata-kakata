@@ -1,17 +1,24 @@
 import React from 'react'
 
-const CitiesTable = ({ cities }) => {
+const CitiesTable = ({ cities, attributes }) => {
   return (
     <div id="data-section" className="data">
       <table>
+        <thead>
+          <th>City</th>
+          <th>Timestamp</th>
+          {attributes.map(x => (
+            <th>{x}</th>
+          ))}
+        </thead>
         <tbody>
           {Object.entries(cities).map(([city, values]) => (
             <tr>
               <td>{city}</td>
-              <td>TIMESTAMP</td>
-              <td>ATTRIBUTE1</td>
-              <td>ATTRIBUTE2</td>
-              <td>ATTRIBUTE3</td>
+              <td>{values.maxTimestamp}</td>
+              {attributes.map(x => (
+                <td>{values[x].value.toFixed(3)}</td>
+              ))}
             </tr>
           ))}
         </tbody>

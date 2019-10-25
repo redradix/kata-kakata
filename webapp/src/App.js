@@ -51,7 +51,7 @@ function App({ attributes }) {
   return (
     <div className="App">
       <CitiesInput onChange={handleChange} />
-      <CitiesTable cities={cities} />
+      <CitiesTable cities={cities} attributes={attributes} />
     </div>
   )
 }
