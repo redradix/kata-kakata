@@ -4,6 +4,16 @@ import './index.css'
 import App from './App'
 import * as serviceWorker from './serviceWorker'
 
+const ATTRIBUTES = [
+  'humidity',
+  'presure',
+  'temperature',
+  'co2',
+  'evaporation',
+  'visibility',
+  'rain_risk',
+]
+
 ReactDOM.render(<App />, document.getElementById('root'))
 
 // If you want your app to work offline and load faster, you can change
