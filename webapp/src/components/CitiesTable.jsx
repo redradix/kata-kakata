@@ -15,7 +15,7 @@ const CitiesTable = ({ cities, attributes }) => {
           {Object.entries(cities).map(([city, values]) => (
             <tr>
               <td>{city}</td>
-              <td>{values.maxTimestamp}</td>
+              <td>{new Date(values.maxTimestamp).toISOString()}</td>
               {attributes.map(x => (
                 <td>{values[x].value.toFixed(3)}</td>
               ))}
