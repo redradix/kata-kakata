@@ -4,11 +4,11 @@ const shouldGenerateNew = () =>
   Boolean(Math.round(Math.random()))
 
 const createValue = id => {
-  const [bla, ble] = R.split('.', id)
+  const [city, attr] = R.split('.', id)
 
   return {
-    bla,
-    ble,
+    city,
+    attr,
     id,
     timestamp: Date.now(),
     value: Math.random()
@@ -20,7 +20,7 @@ const exists = R.complement(R.isNil)
 module.exports = () => {
 
   let _values = {}
-  
+
   return {
     getCurrentValues
   }
