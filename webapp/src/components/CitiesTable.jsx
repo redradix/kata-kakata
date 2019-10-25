@@ -5,7 +5,7 @@ const CitiesTable = ({ cities }) => {
     <div id="data-section" className="data">
       <table>
         <tbody>
-          {cities.map(city => (
+          {Object.entries(cities).map(([city, values]) => (
             <tr>
               <td>{city}</td>
               <td>TIMESTAMP</td>

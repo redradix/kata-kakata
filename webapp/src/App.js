@@ -14,22 +14,43 @@ const getAPIParam = R.pipe(
 const getEndpoint = (cities, attributes) =>
   `${API_HOST}/${getAPIParam(cities, attributes)}`
 
+const parseData = R.pipe(
+  R.groupBy(R.prop('city')),
+  R.map(
+    R.pipe(
+      R.map(R.pick(['attribute', 'timestamp', 'value'])),
+      R.map(({ attribute, ...rest }) => [attribute, rest]),
+      R.fromPairs,
+    ),
+  ),
+)
+
+const getMaxTimestamp = data => {}
+
 function App({ attributes }) {
-  const [cities, setCities] = useState([])
+  const [cities, setCities] = useState({})
 
-  useEffect(() => {
-    if (!cities) {
-      return
-    }
-
+  const handleChange = cities => {
     fetch(getEndpoint(cities, attributes))
-      .then(x => x.json())
-      .then(console.log)
-  }, [cities])
+      .then(res => res.json())
+      .then(data => {
+        const parsedData = parseData(data)
+        const maxTimestampByCity = R.map(
+          R.pipe(
+            R.pluck('timestamp'),
+            R.values,
+            R.apply(Math.max),
+            R.objOf('maxTimestamp'),
+          ),
+        )(parsedData)
+
+        setCities(R.mergeDeepLeft(parsedData, maxTimestampByCity))
+      })
+  }
 
   return (
     <div className="App">
-      <CitiesInput onChange={setCities} />
+      <CitiesInput onChange={handleChange} />
       <CitiesTable cities={cities} />
     </div>
   )
