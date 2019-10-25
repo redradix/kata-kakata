@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useRef } from 'react'
 import * as R from 'ramda'
 import CitiesInput from './components/CitiesInput'
 import CitiesTable from './components/CitiesTable'
@@ -25,10 +25,15 @@ const parseData = R.pipe(
   ),
 )
 
+const FETCH_INTERVAL = 5000
+
 function App({ attributes }) {
   const [cities, setCities] = useState({})
+  const timeoutRef = useRef()
 
   const handleChange = cities => {
+    clearTimeout(timeoutRef.current)
+
     fetch(getEndpoint(cities, attributes))
       .then(res => res.json())
       .then(data => {
@@ -43,6 +48,12 @@ function App({ attributes }) {
         )(parsedData)
 
         setCities(R.mergeDeepLeft(parsedData, maxTimestampByCity))
+
+        clearTimeout(timeoutRef.current)
+        timeoutRef.current = setTimeout(
+          () => handleChange(cities),
+          FETCH_INTERVAL,
+        )
       })
   }
 
