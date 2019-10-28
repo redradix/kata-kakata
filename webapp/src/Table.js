@@ -25,7 +25,7 @@ function App({ data, attributes }) {
               <td>{timestamp}</td>
               {
                 city.map((attr)=>
-                  <td key={attr.id}>{attr.value.toFixed(5)}</td>
+                  <td key={attr.id}>{attr.value.toFixed(4)}</td>
                 )}
             </tr>
           })}
